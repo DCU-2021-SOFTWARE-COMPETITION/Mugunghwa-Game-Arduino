@@ -16,13 +16,15 @@ bool interruptFlag = 0;
 void setup() {
   myServo.attach(SERVO);
   attachInterrupt(BUTTON_INT, systemFinish, RISING);
+  myServo.write(0);
   Serial.begin(9600);
 }
 
 void loop() {
   system_start();
-
-  headShake();
+  if(flag == 1){
+    headShake();
+  }
 }
 
 void system_start() {
@@ -49,9 +51,50 @@ void system_start() {
 }
 
 void headShake() {
+  int select = random(100);
+  
   if(interruptFlag == 1) {
     flag = 0;
   }
+
+  if(select >= 80) {  // *수정 : 하나의 함수로 랜덤 값을 이용하여 delay인자로 바로 사용할 수 있으면 수
+    pattern0();
+  }
+  else if(select >= 40) {
+    pattern1();
+  }
+  else {
+    pattern2();
+  }
+  
+}
+
+void pattern0() {
+  if(flag == 1) {
+    //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
+    myServo.write(180);
+    Serial.println("Green Light!");
+    delay(1000);
+    myServo.write(0);
+    Serial.println("Red Light!");
+    delay(3000);
+
+  }
+}
+
+void pattern1() {
+  if(flag == 1) {
+    //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
+    myServo.write(180);
+    Serial.println("Green Light!");
+    delay(2000);
+    myServo.write(0);
+    Serial.println("Red Light!");
+    delay(3000);
+  }
+}
+
+void pattern2() {
   if(flag == 1) {
     //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
     myServo.write(180);
@@ -60,7 +103,6 @@ void headShake() {
     myServo.write(0);
     Serial.println("Red Light!");
     delay(3000);
-
   }
 }
 
