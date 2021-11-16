@@ -41,10 +41,14 @@ void system_start() {
     delay(10);
   }
 
-  if(buffer == "Go" || buffer == "go") { //서버에서 스타트 신호를 받았을 때로 바꿀 
+  if(buffer == "g") { //서버에서 스타트 신호를 받았을 때로 바꿀 
     startTime = millis();
     flag = 1;
     interruptFlag = 0;
+    Serial.println(buffer);
+  }
+  else if(buffer == "s") {
+    flag = 0;
     Serial.println(buffer);
   }
   
@@ -73,12 +77,11 @@ void pattern0() {
   if(flag == 1) {
     //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
     myServo.write(180);
-    Serial.println("Green Light!");
-    delay(1000);
+    Serial.println("p1");
+    delay(1100);
     myServo.write(0);
-    Serial.println("Red Light!");
     delay(3000);
-
+    
   }
 }
 
@@ -86,10 +89,9 @@ void pattern1() {
   if(flag == 1) {
     //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
     myServo.write(180);
-    Serial.println("Green Light!");
-    delay(2000);
+    Serial.println("p2");
+    delay(2300);
     myServo.write(0);
-    Serial.println("Red Light!");
     delay(3000);
   }
 }
@@ -98,10 +100,9 @@ void pattern2() {
   if(flag == 1) {
     //greenlight 시간 랜덤으로 할 것, 음성을 출력할 것 (sd카드 사운드 활용)
     myServo.write(180);
-    Serial.println("Green Light!");
-    delay(3000);
+    Serial.println("p3");
+    delay(3200);
     myServo.write(0);
-    Serial.println("Red Light!");
     delay(3000);
   }
 }
@@ -110,9 +111,7 @@ void systemFinish() { //버튼 누름을 단 한 번만 인식하도록 만들�
     Serial.println("intrrupt!"); 
     interruptFlag = 1;
     nowTime = (millis() - startTime) / 1000.0;
-    Serial.print("진행 시간 : ");
-    Serial.print(nowTime, 1);
-    Serial.println("s");
+    Serial.println(nowTime, 1);
 
     //경과 시간을 서버로 보내줄 것
 }
