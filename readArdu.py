@@ -9,11 +9,11 @@ print("file open")
 # 노래 재생
 pygame.mixer.init()
 
-mugung1 = pygame.mixer.Sound("1sec_mugunghwa.mp3")
-mugung2 = pygame.mixer.Sound("2sec_mugunghwa.mp3")
-mugung3 = pygame.mixer.Sound("3sec_mugunghwa.mp3")
+mugung1 = pygame.mixer.Sound("1sec_mugunghwa.wav")
+mugung2 = pygame.mixer.Sound("2sec_mugunghwa.wav")
+mugung3 = pygame.mixer.Sound("3sec_mugunghwa.wav")
 
-ser = serial.Serial('/dev/tty.usbmodem114201',9600,timeout=1)
+ser = serial.Serial('/dev/ttyACM0',9600,timeout=1)
 ser.flush()
 
 while True :
